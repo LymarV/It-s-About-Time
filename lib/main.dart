@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'package:flutter/material.dart';
+
 void main() {
   runApp(App());
 }
@@ -27,11 +29,52 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      navigationBar: CupertinoNavigationBar(
-        middle: Text('It`s About Time'),
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.clock),
+            label: 'Time',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(CupertinoIcons.profile_circled),
+            label: 'Profile',
+          )
+        ],
       ),
-      child: SizedBox(),
+      tabBuilder: (context, index) {
+        CupertinoTabView returnValue;
+        switch (index) {
+          case 0:
+            returnValue = CupertinoTabView(
+              builder: (context) {
+                return CupertinoPageScaffold(
+                  child: Container(
+                      alignment: Alignment.center,
+                      color: Colors.orangeAccent,
+                      child: Container(
+                        child: Text('Time'),
+                      )),
+                );
+              },
+            );
+            break;
+          case 1:
+            returnValue = CupertinoTabView(
+              builder: (context) {
+                return CupertinoPageScaffold(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Text('Profile'),
+                  ),
+                );
+              },
+            );
+            break;
+        }
+
+        return returnValue;
+      },
     );
   }
 }
