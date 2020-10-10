@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-import 'MyHomePage.dart';
+import 'myHomePage.dart';
 
 void main() => runApp(App());
 

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:its_about_time/timeneyeService.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -12,6 +13,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    var theService = TimeneyeService();
+
+    theService.loadData();
+
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
