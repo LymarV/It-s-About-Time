@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var theService = TimeneyeService();
 
-    theService.loadData();
+    theService.loadTimers();
 
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
