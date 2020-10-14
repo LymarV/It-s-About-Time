@@ -12,9 +12,12 @@ class UserProfilePage extends StatefulWidget {
 
 class _UserProfilePageState extends State<UserProfilePage> {
   final TimeneyeService timeneyeService = TimeneyeService();
+  final apiKeyTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    _loadApiKey();
+
     timeneyeService.loadTimers();
 
     return CupertinoTabView(
@@ -33,12 +36,24 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   Text('Profile'),
                   SizedBox(height: 100),
                   CupertinoTextField(
+                    controller: apiKeyTextController,
                     placeholder: 'API key',
                   ),
+                  CupertinoButton(child: Text('Save'), onPressed: _saveApiKey),
                 ],
               )),
         );
       },
     );
+  }
+
+  void _saveApiKey() {
+    timeneyeService.SetApiKey(apiKeyTextController.text);
+  }
+
+  void _loadApiKey() async {
+    var apiKey = await timeneyeService.getApiKey();
+
+    apiKeyTextController.text = apiKey;
   }
 }

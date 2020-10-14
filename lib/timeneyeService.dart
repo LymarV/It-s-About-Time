@@ -8,12 +8,12 @@ import 'Timeneye/timers.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TimeneyeService {
-  String _apiKey = '';
+  String _apiKey;
 
   List<Timer> timers;
 
   TimeneyeService() {
-    _loadApiKey();
+    getApiKey();
   }
 
   void SetApiKey(String apiKey) async {
@@ -34,14 +34,15 @@ class TimeneyeService {
 
     var timersObject = Timers.fromJson(data);
 
-    if (timersObject.timers.isEmpty) return;
+    if (timersObject.timers == null || timersObject.timers.isEmpty) return;
 
     timers = timersObject.timers;
   }
 
-  void _loadApiKey() async {
+  Future<String> getApiKey() async {
     var prefs = await SharedPreferences.getInstance();
 
     _apiKey = prefs.getString('apiKey');
+    return _apiKey;
   }
 }
