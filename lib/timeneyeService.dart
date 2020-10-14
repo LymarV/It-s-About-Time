@@ -12,6 +12,17 @@ class TimeneyeService {
 
   List<Timer> timers;
 
+  static TimeneyeService _instance;
+
+  static TimeneyeService getInstance() {
+    if (_instance != null) {
+      return _instance;
+    }
+
+    _instance = TimeneyeService();
+    return _instance;
+  }
+
   TimeneyeService() {
     getApiKey();
   }
@@ -25,6 +36,10 @@ class TimeneyeService {
   }
 
   void loadTimers() async {
+    if (_apiKey == null || _apiKey.isEmpty) {
+      getApiKey();
+    }
+
     String dataURL = "https://track.timeneye.com/api/3/timers";
     http.Response response =
         await http.get(dataURL, headers: {'Bearer': _apiKey});

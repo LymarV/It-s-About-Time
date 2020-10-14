@@ -11,14 +11,12 @@ class UserProfilePage extends StatefulWidget {
 }
 
 class _UserProfilePageState extends State<UserProfilePage> {
-  final TimeneyeService timeneyeService = TimeneyeService();
+  final TimeneyeService timeneyeService = TimeneyeService.getInstance();
   final apiKeyTextController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     _loadApiKey();
-
-    timeneyeService.loadTimers();
 
     return CupertinoTabView(
       builder: (context) {
