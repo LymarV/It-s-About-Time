@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:its_about_time/timeneyeService.dart';
+import 'package:its_about_time/userProfilePage.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
@@ -31,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       tabBuilder: (context, index) {
-        CupertinoTabView returnValue;
+        Widget returnValue;
         switch (index) {
           case 0:
             returnValue = CupertinoTabView(
@@ -51,19 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
             );
             break;
           case 1:
-            returnValue = CupertinoTabView(
-              builder: (context) {
-                return CupertinoPageScaffold(
-                  navigationBar: CupertinoNavigationBar(
-                    middle: Text('Profile'),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    child: Text('Profile'),
-                  ),
-                );
-              },
-            );
+            returnValue = UserProfilePage();
             break;
         }
 
