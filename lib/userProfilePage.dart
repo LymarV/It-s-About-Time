@@ -1,10 +1,22 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
+import 'package:its_about_time/timeneyeService.dart';
 
-class UserProfilePage extends StatelessWidget {
+class UserProfilePage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _UserProfilePageState();
+  }
+}
+
+class _UserProfilePageState extends State<UserProfilePage> {
+  final TimeneyeService timeneyeService = TimeneyeService();
+
   @override
   Widget build(BuildContext context) {
+    timeneyeService.loadTimers();
+
     return CupertinoTabView(
       builder: (context) {
         return CupertinoPageScaffold(

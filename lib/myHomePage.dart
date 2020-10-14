@@ -14,10 +14,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var theService = TimeneyeService();
-
-    theService.loadTimers();
-
     return CupertinoTabScaffold(
       tabBar: CupertinoTabBar(
         items: const <BottomNavigationBarItem>[
