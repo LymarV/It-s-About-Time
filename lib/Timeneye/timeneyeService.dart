@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:its_about_time/Timeneye/entries.dart';
+import 'package:its_about_time/Timeneye/entry.dart';
 import 'package:its_about_time/Timeneye/timer.dart';
 
 import 'timers.dart';
@@ -11,6 +13,7 @@ class TimeneyeService {
   String _apiKey;
 
   List<Timer> timers;
+  List<Entry> entries;
 
   static TimeneyeService _instance;
 
@@ -37,7 +40,7 @@ class TimeneyeService {
 
   void loadTimers() async {
     if (_apiKey == null || _apiKey.isEmpty) {
-      getApiKey();
+      await getApiKey();
     }
 
     String dataURL = "https://track.timeneye.com/api/3/timers";
@@ -52,6 +55,24 @@ class TimeneyeService {
     if (timersObject.timers == null || timersObject.timers.isEmpty) return;
 
     timers = timersObject.timers;
+  }
+
+  void loadEntries() async {
+    if (_apiKey == null || _apiKey.isEmpty) {
+      await getApiKey();
+    }
+
+    String dataURL = "https://track.timeneye.com/api/3/entries";
+    http.Response response =
+        await http.get(dataURL, headers: {'Bearer': _apiKey});
+
+    var data = jsonDecode(response.body);
+
+    var entriesObject = Entries.fromJson(data);
+
+    if (entriesObject.entries == null || entriesObject.entries.isEmpty) return;
+
+    entries = entriesObject.entries;
   }
 
   Future<String> getApiKey() async {
