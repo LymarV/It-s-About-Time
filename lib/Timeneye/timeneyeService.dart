@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:its_about_time/Timeneye/timer.dart';
 
-import 'Timeneye/timers.dart';
+import 'timers.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 

@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:its_about_time/timeneyeService.dart';
+import 'package:its_about_time/Timeneye/timeneyeService.dart';
 import 'package:its_about_time/userProfilePage.dart';
 
 class MyHomePage extends StatefulWidget {
