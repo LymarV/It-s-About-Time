@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:its_about_time/Timeneye/timeneyeService.dart';
+import 'package:its_about_time/timePage.dart';
 import 'package:its_about_time/userProfilePage.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -12,6 +13,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var timeneyeService = TimeneyeService.getInstance();
+
+  @override
+  void initState() {
+    super.initState();
+    timeneyeService.loadEntries();
+  }
+
   @override
   Widget build(BuildContext context) {
     return CupertinoTabScaffold(
@@ -31,21 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
         Widget returnValue;
         switch (index) {
           case 0:
-            returnValue = CupertinoTabView(
-              builder: (context) {
-                return CupertinoPageScaffold(
-                  navigationBar: CupertinoNavigationBar(
-                    middle: Text('Time'),
-                  ),
-                  child: Container(
-                      alignment: Alignment.center,
-                      color: CupertinoColors.activeOrange,
-                      child: Container(
-                        child: Text('Time'),
-                      )),
-                );
-              },
-            );
+            returnValue = TimePage();
             break;
           case 1:
             returnValue = UserProfilePage();
