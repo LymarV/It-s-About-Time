@@ -12,9 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class TimeneyeService {
   String _apiKey;
 
-  List<Timer> timers;
-  List<Entry> entries;
-
   static TimeneyeService _instance;
 
   static TimeneyeService getInstance() {
@@ -30,7 +27,7 @@ class TimeneyeService {
     getApiKey();
   }
 
-  void SetApiKey(String apiKey) async {
+  void setApiKey(String apiKey) async {
     _apiKey = apiKey;
 
     var prefs = await SharedPreferences.getInstance();
@@ -38,7 +35,7 @@ class TimeneyeService {
     await prefs.setString('apiKey', _apiKey);
   }
 
-  void loadTimers() async {
+  Future<List<Timer>> loadTimers() async {
     if (_apiKey == null || _apiKey.isEmpty) {
       await getApiKey();
     }
@@ -52,12 +49,13 @@ class TimeneyeService {
 
     var timersObject = Timers.fromJson(data);
 
-    if (timersObject.timers == null || timersObject.timers.isEmpty) return;
+    if (timersObject.timers == null || timersObject.timers.isEmpty)
+      return List.empty();
 
-    timers = timersObject.timers;
+    return timersObject.timers;
   }
 
-  void loadEntries() async {
+  Future<List<Entry>> loadEntries() async {
     if (_apiKey == null || _apiKey.isEmpty) {
       await getApiKey();
     }
@@ -70,9 +68,10 @@ class TimeneyeService {
 
     var entriesObject = Entries.fromJson(data);
 
-    if (entriesObject.entries == null || entriesObject.entries.isEmpty) return;
+    if (entriesObject.entries == null || entriesObject.entries.isEmpty)
+      return List.empty();
 
-    entries = entriesObject.entries;
+    return entriesObject.entries;
   }
 
   Future<String> getApiKey() async {
