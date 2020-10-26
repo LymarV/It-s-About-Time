@@ -6,20 +6,19 @@ part 'timer.g.dart';
 
 @JsonSerializable()
 class Timer {
-  Timer(this.id, this.minutes, this.projectId, this.projectName, this.taskId,
-      this.taskName, this.notes) {
-    date = DateTime.now();
+  Timer(this.id, this.currentSeconds, this.projectId, this.projectName,
+      this.taskId, this.taskName, this.notes) {
+    _date = DateTime.now();
 
-    var time = int.tryParse(minutes);
-    if (time != null) {
-      _time = time;
-    }
+    _time = currentSeconds ~/ 60;
   }
 
-  DateTime date;
+  DateTime _date;
+  DateTime get date => _date;
+
+  int currentSeconds;
 
   String id;
-  String minutes;
   String projectId;
   String projectName;
   String taskId;
