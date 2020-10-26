@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/cupertino.dart';
-import 'package:its_about_time/timeneyeService.dart';
+import 'package:its_about_time/Timeneye/timeneyeService.dart';
 
 class UserProfilePage extends StatefulWidget {
   @override
@@ -13,6 +13,10 @@ class UserProfilePage extends StatefulWidget {
 class _UserProfilePageState extends State<UserProfilePage> {
   final TimeneyeService timeneyeService = TimeneyeService.getInstance();
   final apiKeyTextController = TextEditingController();
+
+  bool timeneyeApiKeyFieldVisible = false;
+
+  IconData timeneyeKeyVisibilityIcon = CupertinoIcons.eye_slash;
 
   @override
   Widget build(BuildContext context) {
@@ -27,17 +31,43 @@ class _UserProfilePageState extends State<UserProfilePage> {
           child: Container(
               padding: EdgeInsets.all(50),
               alignment: Alignment.center,
-              color: Colors.teal,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  Text('Profile'),
                   SizedBox(height: 100),
-                  CupertinoTextField(
-                    controller: apiKeyTextController,
-                    placeholder: 'API key',
+                  Row(
+                    children: [
+                      Text(
+                        'Timeneye API Key',
+                        style: TextStyle(
+                          color: Color(0xff455272),
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
-                  CupertinoButton(child: Text('Save'), onPressed: _saveApiKey),
+                  Row(
+                    children: [
+                      Flexible(
+                        child: CupertinoTextField(
+                          obscureText: !timeneyeApiKeyFieldVisible,
+                          controller: apiKeyTextController,
+                          placeholder: 'API key',
+                        ),
+                      ),
+                      CupertinoButton(
+                          child: Icon(
+                            timeneyeKeyVisibilityIcon,
+                            color: Color(0xff455272),
+                          ),
+                          onPressed: _toggleTimeneyeKeyVisibility),
+                    ],
+                  ),
+                  SizedBox(height: 100),
+                  CupertinoButton.filled(
+                    child: Text('Save'),
+                    onPressed: _saveApiKey,
+                  ),
                 ],
               )),
         );
@@ -46,12 +76,22 @@ class _UserProfilePageState extends State<UserProfilePage> {
   }
 
   void _saveApiKey() {
-    timeneyeService.SetApiKey(apiKeyTextController.text);
+    timeneyeService.setApiKey(apiKeyTextController.text);
   }
 
   void _loadApiKey() async {
     var apiKey = await timeneyeService.getApiKey();
 
     apiKeyTextController.text = apiKey;
+  }
+
+  void _toggleTimeneyeKeyVisibility() {
+    setState(() {
+      timeneyeApiKeyFieldVisible = !timeneyeApiKeyFieldVisible;
+
+      timeneyeKeyVisibilityIcon = timeneyeApiKeyFieldVisible
+          ? CupertinoIcons.eye
+          : CupertinoIcons.eye_slash;
+    });
   }
 }
