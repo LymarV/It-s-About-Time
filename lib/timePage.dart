@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:its_about_time/Time/timeEntry.dart';
 import 'package:its_about_time/Time/timeService.dart';
 
@@ -48,6 +49,8 @@ class _TimePageState extends State<TimePage> {
     final hours = e.time ~/ 60;
     final minutes = e.time % 60;
 
+    var timeFormatter = NumberFormat('00', 'en_US');
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 5, right: 5),
       child: Row(
@@ -71,7 +74,7 @@ class _TimePageState extends State<TimePage> {
               ),
             ],
           ),
-          Text('$hours:$minutes'),
+          Text('$hours:${timeFormatter.format(minutes)}'),
         ],
       ),
     );
