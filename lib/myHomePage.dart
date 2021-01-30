@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:its_about_time/Timeneye/timeneyeService.dart';
 import 'package:its_about_time/timePage.dart';
 import 'package:its_about_time/userProfilePage.dart';
 
@@ -13,12 +12,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  var timeneyeService = TimeneyeService.getInstance();
-
   @override
   void initState() {
     super.initState();
-    timeneyeService.loadEntries();
   }
 
   @override
