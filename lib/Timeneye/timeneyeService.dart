@@ -41,8 +41,8 @@ class TimeneyeService {
     }
 
     String dataURL = "https://track.timeneye.com/api/3/timers";
-    http.Response response =
-        await http.get(dataURL, headers: {'Bearer': _apiKey});
+    http.Response response = await http.get(dataURL,
+        headers: {'Bearer': _apiKey, 'Content-Type': 'application/json'});
 
     print(response.body);
     var data = jsonDecode(response.body);
